@@ -4,6 +4,7 @@ var answerButton = document.querySelector('.answer-button');
 var magicBallImg = document.querySelector('.eight-ball-img');
 var questionText = document.querySelector('.question-text');
 var answerText = document.querySelector('.answer-text');
+var clearButton = document.querySelector('.clear-button');
 
 //GLOBAL VARIABLES:
 var answers = [
@@ -32,7 +33,7 @@ var savedResults = [];
 
 //EVENT LISTENERS:
 answerButton.addEventListener('click', showResult)
-
+clearButton.addEventListener('click', clearResult)
 //FUNCTIONS/EVENT HANDLERS:
 
 function randomizeNumber(array) {
@@ -41,12 +42,12 @@ function randomizeNumber(array) {
 
 function showResult() {
   event.preventDefault()
-  showQuestion()
-  showAnswer()
-
-  // get value of user input, replace inner text of h2, and make visible
-  // randomize answer, replace inner text of h3 and make visible
-  // hide 8 ball image
+  if(questionInput.value === "") {
+    answerButton.classList.add('disabled');
+  } else {
+    showQuestion()
+    showAnswer()
+  }
 }
 
 function showQuestion() {
@@ -59,4 +60,10 @@ function showQuestion() {
 function showAnswer() {
   answerText.innerText = `${answers[randomizeNumber(answers)]}`;
   answerText.style.display = "block";
+}
+
+function clearResult() {
+  answerText.style.display = "none"
+  questionText.style.display = "none"
+  magicBallImg.style.display = "block"
 }
